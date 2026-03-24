@@ -23,12 +23,13 @@ public class InvisibleListener implements Listener {
     private final InvisibleKiller plugin;
     private final PriorityManager manager;
     private final Map<String, String> temp = new HashMap<>();
-    private final Set<String> isOverwriting = new HashSet<>();
+    private final Set<UUID> isOverwriting = new HashSet<>();
 
     public InvisibleListener(InvisibleKiller plugin, PriorityManager manager) {
         this.plugin = plugin;
         this.manager = manager;
     }
+
 
     @EventHandler
     public void onPotionEffect(EntityPotionEffectEvent event) {
@@ -40,20 +41,14 @@ public class InvisibleListener implements Listener {
         PotionEffect npe = event.getNewEffect();
         PotionEffect ope = event.getOldEffect();
 
-        if (ope == null && npe != null && npe.getType() == PotionEffectType.INVISIBILITY) {
-            if (manager.isPlayerTabHidden(p)) {
-                isOverwriting.add(p.getName());
-            } else {
-                manager.toggleTabHider(p);
-            }
+        if (npe != null && npe.getType() == PotionEffectType.INVISIBILITY) {
+            if (manager.isPlayerTabHidden(p)) isOverwriting.add(p.getUniqueId());
+            else manager.toggleTabHider(p);
         }
 
-        if (npe == null && ope != null && ope.getType() == PotionEffectType.INVISIBILITY) {
-            if (!isOverwriting.contains(p.getName())) {
-                manager.toggleTabHider(p);
-            } else {
-                isOverwriting.remove(p.getName());
-            }
+        if (ope != null && ope.getType() == PotionEffectType.INVISIBILITY) {
+            if (!isOverwriting.contains(p.getUniqueId())) manager.toggleTabHider(p);
+            else isOverwriting.remove(p.getUniqueId());
         }
     }
 
