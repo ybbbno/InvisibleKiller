@@ -1,0 +1,6 @@
+{
+  "datapack.vanilla_tweaks.player_head_drops.head.lore.description":"Был убит %s",
+
+  "plugin.nvanish.chat.death": "%s был убит %s",
+  "plugin.nvanish.player_head_drops.head.lore.unknown_killer": "Неизвестным"
+}

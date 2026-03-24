@@ -1,0 +1,13 @@
+name: InvisibleKiller
+version: '0.1.2'
+main: me.ybbbno.invisiblekiller.InvisibleKiller
+api-version: '1.21'
+authors: [ Ybbb ]
+dependencies:
+  server:
+    YBMJ:
+      load: BEFORE
+      required: true
+    NVanish:
+      load: BEFORE
+      required: false
